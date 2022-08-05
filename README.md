@@ -48,12 +48,21 @@ This yields Hamiltonian (which is equivilant upon subtracting a scalar matrix to
 $$H_p=\sum_{i\neq j}\sum_{k\neq l}Z_{ik}Z_{jk}Z_{il}Z_{jl}.$$
 When this Hamiltonian is converted to unitary gate: $e^{-i\gamma H_p}$,
 we can apply a quantum circuit layer applying 6 CNOT gates and arbitrary rotation gate $R_z(2\gamma)$
-for every term in the summation. This program is implemented in Qiskit and run on a quantum computer simulator.
+for every term in the summation.
 
-#Results
+# Results
+ This program is implemented in Qiskit and run on a quantum computer simulator.
+ 
+If $n=2$, then the algorithm finds all Hadamard matrices with resulting in a superposition of them. Measuring this state always yields a Hadamard matrix.
 
-If $n=4$:
-| layers      | Probability of succesful measurement |
+If $n=4$,
+then one may have to do several measurements of the final state until they find a Hadamard matrix (some of the states in the superposition won't be Hadamard matrices). By the adiabatic theorem, as the number of layers goes to infinity we should increase the probability of succesfully measuring a Hadamard matrix to 100%.
+We see that the success rate doesn't necessary increase with each additional layer and seems to work best for an even number of layers. Nevertheless, a success rate of 48.7% with 4 layers is promising.
+
+If we did a random search on all 4-by-4 matrices, the success rate of stumbling on a Hadamard matrix would be 1.17%. If we did a refiend random search, by insisting that the first column only has 1's as entries (any Hadamatrix can be "normalized" to yield this property) and that the following columns are distinct and have two 1's and two -1's, we would still only have a success rate of 40%.
+
+| Search for 4-by-4 Hadamard matrix|
+| Number of layers      | Probability of succesful measurement |
 | ----------- |----------- |
 | 1        |2.2%           |
 | 2        | 38.5%         |
