@@ -51,7 +51,8 @@ we can apply a quantum circuit layer applying 6 CNOT gates and arbitrary rotatio
 for every term in the summation. Thus, if there are $p$ layers and a classical optimizer has to call the quantum circuit $t$ times, the run-time would be
 $O(p\cdot t\cdot n^4)$,
 which could be a great assest when there are $2^{n^2}$
-matrices with $1$s and $-1$s.
+matrices with $1$
+s and $-1$s.
 
 To attack the problem of $n=668$, would require a fault-tolerant quantum computer with $668^2=446224$
 logical qubits, which still doesn't exist.
