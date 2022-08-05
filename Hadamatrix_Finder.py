@@ -8,6 +8,7 @@ import random as rd
 #Finds n-by-n Hadamard matrix (matrix with entries 1,-1 such that any two columns are orthogonal)
 #via QAOA
 n=4
+p=1 # number of layers
 
 #We need a qubit for every entry of the matrix 
 #  if the qubit is 1 this represents a -1 in the matrix. If the qubit is 0 it represents a +1 in the matrix
@@ -53,7 +54,7 @@ def create_qaoa_circ(n, theta):
     return qc
 
 #returns execute_circ( ) for COBYLA to classically optimize
-def get_expectation(n, p, shots=512):
+def get_expectation(n, shots=512):
     
     
     backend = Aer.get_backend('qasm_simulator')
@@ -99,8 +100,7 @@ def hadamard_obj(x, n):
 from scipy.optimize import minimize
 
 #change p to increase number of layers (chance of finding Hadamard matrix)
-p=2
-expectation = get_expectation(n, p)
+expectation = get_expectation(n)
 
 res = minimize(expectation, np.ones(2*p), method='COBYLA')
 print(res)
@@ -120,6 +120,7 @@ counts = backend.run(qc_res, seed_simulator=10).result().get_counts()
 minVal=n**4
 minMatrix="-1"
 matrixCount=0
+succCount=0
 for key in counts:
     keyCost=hadamard_obj(key,n)
     if keyCost<minVal:
@@ -127,7 +128,7 @@ for key in counts:
         minVal=keyCost
         matrixCount=counts[key]
     if keyCost==0:
-        break
+        succCount+=counts[key]
 
 #find best matrix candidate as most likely measurement outcome
 #minMatrix=max(counts, key=counts.get)
@@ -139,3 +140,5 @@ for i in range(n):
         1
         A[i,j]=(-1)**int(minMatrix[n*i+j]) 
 print(f"{A} with non-Hadamardness {minVal} (found a Hadamard matrix if 0) measured {counts[minMatrix]} time(s)")
+totMeasurements=sum(counts.values())
+print(f"{succCount}/{totMeasurements} good measurement rate")
