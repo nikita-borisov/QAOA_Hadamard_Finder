@@ -49,6 +49,7 @@ $$H_p=\sum_{i\neq j}\sum_{k\neq l}Z_{ik}Z_{jk}Z_{il}Z_{jl}.$$
 When this Hamiltonian is converted to unitary gate: $e^{-i\gamma H_p}$,
 we can apply a quantum circuit layer applying 6 CNOT gates and arbitrary rotation gate $R_z(2\gamma)$ for every term of the summation
 as seen below
+
 ![](CCCZ.PNG)
 
 Thus, if there are $p$ layers and a classical optimizer has to call the quantum circuit $t$ times, the run-time would be
