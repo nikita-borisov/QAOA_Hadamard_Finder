@@ -6,9 +6,11 @@ is an n-by-n matrix with all entries populated with +1 or -1, such that any two 
 This condition is equivilant to $HH^T=nI$.
 
 For example, a 2-by-2 Hadamard matrix can be
-$$H_2=\begin{bmatrix}1&1\\ 1&-1\end{bmatrix},$$
+$$H_2=\begin{bmatrix}1&1\\ 
+1&-1\end{bmatrix},$$
 since the two columns are orthogonal, which is related to the Hadamard gate in quantum computing
-$$\frac{1}{\sqrt{2}}\begin{bmatrix}1&1\\ 1&-1\end{bmatrix}.$$
+$$\frac{1}{\sqrt{2}}\begin{bmatrix}1&1\\ 
+1&-1\end{bmatrix}.$$
 
 It can be shown that if $H$
 is an n-by-n Hadamard matrix, then it must be the case $n=1,2$
