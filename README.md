@@ -52,7 +52,10 @@ for every term in the summation. This program is implemented in Qiskit and run o
 
 #Results
 
-| n=4         | layers      | Probability of succesful measurement |
-| ----------- | ----------- |----------- |
-| Header      | Title       |            |
-| Paragraph   | Text        |            |
+If $n=4$:
+| layers      | Probability of succesful measurement |
+| ----------- |----------- |
+| 1        |2.2%           |
+| 2        | 38.5%         |
+|3         | 13.7%         |
+|4         | 48.7%         |
