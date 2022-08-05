@@ -99,7 +99,7 @@ def hadamard_obj(x, n):
 from scipy.optimize import minimize
 
 #change p to increase number of layers (chance of finding Hadamard matrix)
-p=1
+p=2
 expectation = get_expectation(n, p)
 
 res = minimize(expectation, np.ones(2*p), method='COBYLA')
@@ -119,15 +119,23 @@ counts = backend.run(qc_res, seed_simulator=10).result().get_counts()
 #find best matrix candidate in counts
 minVal=n**4
 minMatrix="-1"
+matrixCount=0
 for key in counts:
     keyCost=hadamard_obj(key,n)
     if keyCost<minVal:
         minMatrix=key
         minVal=keyCost
-     
+        matrixCount=counts[key]
+    if keyCost==0:
+        break
+
+#find best matrix candidate as most likely measurement outcome
+#minMatrix=max(counts, key=counts.get)
+#minVal=hadamard_obj(minMatrix,n)
+    
 A = np.zeros([n,n])
 for i in range(n):
     for j in range(n):
+        1
         A[i,j]=(-1)**int(minMatrix[n*i+j]) 
-print(f"{A} with non-Hadamardness {minVal} (found a Hadamard matrix if 0)")      
-        
+print(f"{A} with non-Hadamardness {minVal} (found a Hadamard matrix if 0) measured {counts[minMatrix]} time(s)")
