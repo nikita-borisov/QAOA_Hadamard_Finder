@@ -50,4 +50,9 @@ When this Hamiltonian is converted to unitary gate: $e^{-i\gamma H_p}$,
 we can apply a quantum circuit layer applying 6 CNOT gates and arbitrary rotation gate $R_z(2\gamma)$
 for every term in the summation. This program is implemented in Qiskit and run on a quantum computer simulator.
 
+#Results
 
+| n=4         | layers      | Probability of succesful measurement |
+| ----------- | ----------- |----------- |
+| Header      | Title       |            |
+| Paragraph   | Text        |            |
