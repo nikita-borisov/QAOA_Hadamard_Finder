@@ -47,8 +47,11 @@ is a $Z$ gate applied to qubit corresponding to entry $(i,k)$.
 This yields Hamiltonian (which is equivilant upon subtracting a scalar matrix to)
 $$H_p=\sum_{i\neq j}\sum_{k\neq l}Z_{ik}Z_{jk}Z_{il}Z_{jl}.$$
 When this Hamiltonian is converted to unitary gate: $e^{-i\gamma H_p}$,
-we can apply a quantum circuit layer applying 6 CNOT gates and arbitrary rotation gate $R_z(2\gamma)$
-for every term in the summation. Thus, if there are $p$ layers and a classical optimizer has to call the quantum circuit $t$ times, the run-time would be
+we can apply a quantum circuit layer applying 6 CNOT gates and arbitrary rotation gate $R_z(2\gamma)$ for every term of the summation
+as seen below
+![](CCCZ.PNG)
+
+Thus, if there are $p$ layers and a classical optimizer has to call the quantum circuit $t$ times, the run-time would be
 $O(p\cdot t\cdot n^4)$,
 which could be a great assest when there are $2^{n^2}$
 matrices with $1$
