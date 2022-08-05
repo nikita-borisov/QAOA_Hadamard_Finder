@@ -48,7 +48,14 @@ This yields Hamiltonian (which is equivilant upon subtracting a scalar matrix to
 $$H_p=\sum_{i\neq j}\sum_{k\neq l}Z_{ik}Z_{jk}Z_{il}Z_{jl}.$$
 When this Hamiltonian is converted to unitary gate: $e^{-i\gamma H_p}$,
 we can apply a quantum circuit layer applying 6 CNOT gates and arbitrary rotation gate $R_z(2\gamma)$
-for every term in the summation.
+for every term in the summation. Thus, if there are $p$ layers and a classical optimizer has to call the quantum circuit $t$ times, the run-time would be
+$O(p\cdot t\cdot n^4)$,
+which could be a great assest when there are $2^{n^2}$
+matrices with $1$s and $-1$s.
+
+To attack the problem of $n=668$, would require a fault-tolerant quantum computer with $668^2=446224$
+logical qubits, which still doesn't exist.
+Once large-scale quantum computing is achieved, we may use it to assist in [combintorial design problems](https://en.wikipedia.org/wiki/Combinatorial_design) like this one. Combinatorial designs have a wide range of applications. Hadamard matrices in particular are used in [experimental designs](https://en.wikipedia.org/wiki/Plackett%E2%80%93Burman_design), estimating (sample variability)[https://en.wikipedia.org/wiki/Balanced_repeated_replication], and (radio signal processing)[https://en.wikipedia.org/wiki/Olivia_MFSK].
 
 # Results
  This program is implemented in Qiskit and run on a quantum computer simulator.
