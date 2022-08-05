@@ -30,13 +30,13 @@ def create_qaoa_circ(n, theta):
         qc.h(i)
     
     for iteration in range(0, p):
-        
+       
         # problem unitary
         for i in range(n):
-            for j in range(n):
+            for j in range(i):
                 for k in range(n):
                     for l in range(n):
-                        if (k!=l) and (j!=i):
+                        if k!=l:
                             qc.cnot(n*i+k,n*j+k)
                             qc.cnot(n*j+k,n*i+l)
                             qc.cnot(n*i+l,n*j+l)
@@ -89,12 +89,11 @@ def compute_expectation(counts, n):
 def hadamard_obj(x, n):  
     obj = 0
     for i in range(n):
-        for j in range(n):
-            if i!=j:
-                temp=0
-                for k in range(n):
-                    temp+=(2*int(x[n*i+k])-1)*(2*int(x[n*j+k])-1)
-                obj+=temp**2
+        for j in range(i):
+            temp=0
+            for k in range(n):
+                temp+=(2*int(x[n*i+k])-1)*(2*int(x[n*j+k])-1)
+            obj+=temp**2
     return obj
 
 from scipy.optimize import minimize
