@@ -32,16 +32,16 @@ We apply the [Quantum Approximate Optimization Algorithm (QAOA)](https://qiskit.
 
 In some sense, the circuit uses the optimal number of qubits: $n^2$
 since this is the fewest bits of data needed to store the value of an n-by-n matrix with entries $\pm1$.
-The QAOA requires a cost function to optimize. If $A$ has entries $\pm 1$,
+The QAOA requires a cost function to optimize. If $H$ has entries $\pm 1$,
 then the diagonal entries of $HH^T$
 are equal to $n$. 
 Thus, we only have to check that the non-diagonal entries of $HH^T$
-are zero. We define the cost function to minimize
-$$C(H)=\sum_{i\neq j}\left(\sum_k H_{ik}H_{jk}\right)^2.$$
+are zero. Also since $HH^T$ is symmetric, we only need to check that the entries below the diagonal are zero. We define the cost function we want to minimize
+$$C(H)=\sum_{i< j}\left(\sum_k H_{ik}H_{jk}\right)^2.$$
 Given a bit string with $n^2$
 entries of the form $b_{ik}=0,1$. 
 Then the cost function in terms of the bit string is
-$$C(b)=\sum_{i\neq j}\left(\sum_k (2b_{ik}-1)(2b_{jk}-1)\right)^2.$$
+$$C(b)=\sum_{i< j}\left(\sum_k (2b_{ik}-1)(2b_{jk}-1)\right)^2.$$
 To turn this into a problem Hamiltonian (as seen in [earlier link](https://qiskit.org/textbook/ch-applications/qaoa.html)) we substitute $b_{ik}=\frac{1}{2}(I-Z_{ik})$,
 where $Z_{ik}$ 
 is a $Z$ gate applied to qubit corresponding to entry $(i,k)$.
@@ -66,22 +66,24 @@ Once large-scale quantum computing is achieved, we may use it to assist in [comb
 # Results
  This program is implemented in Qiskit and run on a quantum computer simulator.
  
-If $n=2$, then the algorithm finds all Hadamard matrices resulting in a superposition of them. Measuring this state always yields a Hadamard matrix.
+If $n=2$, one will get a Hadamard matrix upon measurement more than 99% of the time when there are 1 or 2 layers, and will get a Hadamard matrix 100% of the time if there are 3 or more layers.
 
 If $n=4$,
 then one may have to do several measurements of the final state until they find a Hadamard matrix (some of the states in the superposition won't be Hadamard matrices). By the adiabatic theorem, as the number of layers goes to infinity we should increase the probability of succesfully measuring a Hadamard matrix to 100%.
-We see that the success rate can still ossiclate as we increase the number of layers (although this may be a by-product of a faulty classical optimizer or error rates that pile up with state vectors that have $2^{16}$
-entries). Nevertheless, success rates of 48.7% with 4 layers and 40% with 8 layers are promising.
+We see that the success rate can still ossiclate a bit as we increase the number of layers. Still the success rates of 69.6% with 5 layers, 76.7% with 7 layers, and 75.3% with 8 layers are quite promising.
 
 If we did a random search on all 4-by-4 matrices, the success rate of stumbling on a Hadamard matrix would be 1.17%. If we did a refiend random search, by insisting that the first column only has 1's as entries (any Hadamatrix can be "normalized" to yield this property) and that the following columns are distinct and have two 1's and two -1's, we would still only have a success rate of 40%.
+
+We also performed these tests with a more naive version of the algorithm where the cost function checks *all* non-diagonal entries of $HH^T$
+(essentially this would require twice as many gates and thus be twice as slow). The results where much poorer and the success rate topped off at 48% with 4 layers. This indicates errors can pile up when we increase the number of operations either through the number of layers or number of gates resulting from a redundant cost function.
                           
 | Number of layers      | Probability of succesful measurement |
 | ----------- |----------- |
-| 1        |2.2%           |
-| 2        | 38.5%         |
-|3         | 13.7%         |
-|4         | 48.7%         |
-|5         | 3.6%          |
-|6         | 21.5%         |
-|7         | 28.9%         |
-|8         | 40.0%         |
+| 1        |22.3%           |
+| 2        |10.4%         |
+|3         |41.7%         |
+|4         | 40.8%         |
+|5         | 69.6%          |
+|6         | 45.1%         |
+|7         | 76.7%         |
+|8         | 75.3%         |
