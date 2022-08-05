@@ -72,6 +72,12 @@ If $n=4$,
 then one may have to do several measurements of the final state until they find a Hadamard matrix (some of the states in the superposition won't be Hadamard matrices). By the adiabatic theorem, as the number of layers goes to infinity we should increase the probability of succesfully measuring a Hadamard matrix to 100%.
 We see that the success rate can still ossiclate a bit as we increase the number of layers. Still the success rates of 69.6% with 5 layers, 76.7% with 7 layers, and 75.3% with 8 layers are quite promising.
 
+Note also that the longest part of the problem is the optimization of parameters $\beta_i$
+and $\gamma_i$
+since the classical optimizer must rerun the circuit many times while tweaking these values.
+Once these parameters are optimized, preparing the state takes relatively little time so it's not a big deal if we do not measure a Hadamard matrix after optimizing the parmeters. One can keep preparing and measuring the state with the same
+optimizied parameters until they measure a Hadamard matrix.
+
 If we did a random search on all 4-by-4 matrices, the success rate of stumbling on a Hadamard matrix would be 1.17%. If we did a refined random search, by insisting that the first column only has 1's as entries (any Hadamatrix can be "normalized" to yield this property) and that the following columns are distinct and have two 1's and two -1's, we would still only have a success rate of 40%.
 
 We also performed these tests with a more naive version of the algorithm where the cost function checks *all* non-diagonal entries of $HH^T$
