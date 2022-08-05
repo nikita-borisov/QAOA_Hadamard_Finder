@@ -13,7 +13,9 @@ $$\frac{1}{\sqrt{2}}\begin{bmatrix}1&1\\1&-1\end{bmatrix}.$$
 It can be shown that if $H$
 is an n-by-n Hadamard matrix, then it must be the case $n=1,2$
 or $n$
-is a multiple of 4. The converse is not known, however. This problem is called the **Hadamard conjecture**: if $n$ is a multiple of 4 then an
+is a multiple of 4. We don't know if the converse is true, however.
+
+This problem is called the **Hadamard conjecture**: if $n$ is a multiple of 4 then an
 n-by-n Hadamard matrix exists. We know that the conjecture is true if $n$
 is power of 2 (we can the tensor product $H_2^{\otimes n}$
 to get a $2^n$
@@ -46,6 +48,6 @@ This yields Hamiltonian (which is equivilant upon subtracting a scalar matrix to
 $$H_p=\sum_{i\neq j}\sum_{k\neq l}Z_{ik}Z_{jk}Z_{il}Z_{jl}.$$
 When this Hamiltonian is converted to unitary gate: $e^{-i\gamma H_p}$,
 we can apply a quantum circuit layer applying 6 CNOT gates and arbitrary rotation gate $R_z(2\gamma)$
-for every term in the summation. 
+for every term in the summation. This program is implemented in Qiskit and run on a quantum computer simulator.
 
 
